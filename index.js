@@ -1,5 +1,6 @@
 const redux = require("redux");
-const createStore = redux.createStore; 
+const createStore = redux.createStore;
+const combineReducers = redux.combineReducers;
 
 // Redux Actions tutorial: https://www.youtube.com/watch?v=2lxCaLJ2Rbk&list=PLC3y8-rFHvwheJHvseC3I0HuYI2f46oAK&index=5
 
@@ -68,7 +69,13 @@ const iceCreamReducer = (state = initialIceCreamState, action) => {
 }
 
 // Redux store is storing the initial state of the App. Responsibility 1
-const store = createStore(reducer);
+// Combine all the different reducers into a single reducer called as the Root reducer
+const rootReducer = combineReducers({
+    cake: cakeReducer,
+    iceCream: iceCreamReducer
+});
+
+const store = createStore(rootReducer);
 
 // Access the state using the getState() method. Responsibility 2
 console.log("Initial State: ", store.getState());
