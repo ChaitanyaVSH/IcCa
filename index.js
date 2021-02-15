@@ -27,17 +27,18 @@ function buyIceCream() {
 
 // Reducer requires prevState and the action
 
-// initial state
-const initialState = {
+// initial states for Cakes and IceCreams 
+const initialCakeState = {
     numberOfCakes: 10,
+}
+
+const initialIceCreamState = {
     numberOfIceCreams: 50,
 }
 
 // This reducer is managing only 2 actions, for now it will be easy to maintain. But with future expansions it will be difficult to maintain multiple actions in a single reducer
-const reducer = (state = initialState, action) => {
-
+const cakeReducer = (state = initialCakeState, action) => {
     switch(action.type){
-
         // We are not mutating the state object, instead we are returning a new state object
         case BUY_CAKE:
             return {
@@ -46,6 +47,14 @@ const reducer = (state = initialState, action) => {
                 numberOfCakes: state.numberOfCakes - 1,
             }
         
+        // Default handler to pass the default state
+        default:
+            return state
+    }
+}
+
+const iceCreamReducer = (state = initialIceCreamState, action) => {
+    switch(action.type){        
         case BUY_ICECREAM:
             return {
                 ...state,
@@ -56,7 +65,6 @@ const reducer = (state = initialState, action) => {
         default:
             return state
     }
-
 }
 
 // Redux store is storing the initial state of the App. Responsibility 1
