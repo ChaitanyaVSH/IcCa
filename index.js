@@ -6,6 +6,7 @@ const createStore = redux.createStore;
 
 // Action types have to be the String constants
 const BUY_CAKE = "BUY_CAKE"
+const BUY_ICECREAM = "BUY_ICECREAM"
 
 // Defining the action that has the type property
 // Action creator, simply returns an action. It's a function that returns the action
@@ -17,14 +18,22 @@ function buyCake() {
     }
 }
 
+function buyIceCream() {
+    return {
+        type: BUY_ICECREAM
+    }
+}
+
 
 // Reducer requires prevState and the action
 
 // initial state
 const initialState = {
-    numberOfCakes: 10
+    numberOfCakes: 10,
+    numberOfIceCreams: 50,
 }
 
+// This reducer is managing only 2 actions, for now it will be easy to maintain. But with future expansions it will be difficult to maintain multiple actions in a single reducer
 const reducer = (state = initialState, action) => {
 
     switch(action.type){
@@ -32,8 +41,15 @@ const reducer = (state = initialState, action) => {
         // We are not mutating the state object, instead we are returning a new state object
         case BUY_CAKE:
             return {
+                // Spreading the state that holds other attributes, below attributes just updates the required one
                 ...state,
                 numberOfCakes: state.numberOfCakes - 1,
+            }
+        
+        case BUY_ICECREAM:
+            return {
+                ...state,
+                numberOfIceCreams: state.numberOfIceCreams - 1,
             }
         
         // Default handler to pass the default state
@@ -58,5 +74,12 @@ store.dispatch(buyCake())
 store.dispatch(buyCake())
 store.dispatch(buyCake())
 store.dispatch(buyCake())
+
+store.dispatch(buyIceCream())
+store.dispatch(buyIceCream())
+store.dispatch(buyIceCream())
+store.dispatch(buyIceCream())
+store.dispatch(buyIceCream())
+store.dispatch(buyIceCream())
 
 unsubscribe();
